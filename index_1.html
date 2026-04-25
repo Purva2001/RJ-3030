@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Will You Be My Forever Partner? 💙</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background: linear-gradient(135deg, #c9eeff 0%, #ddf2ff 35%, #b8e8ff 65%, #e0f7ff 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* === FLOATING RED HEARTS === */
+.hearts-bg { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+.hf {
+  position: absolute;
+  bottom: -60px;
+  animation: floatUp linear infinite;
+  user-select: none;
+  line-height: 1;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) scale(1) rotate(-5deg); opacity: 0.85; }
+  60%  { opacity: 0.6; }
+  100% { transform: translateY(-108vh) scale(0.5) rotate(15deg); opacity: 0; }
+}
+
+/* === CARD === */
+.card {
+  position: relative; z-index: 10;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(18px);
+  border: 2px solid rgba(180,225,255,0.9);
+  border-radius: 36px;
+  padding: 38px 34px 34px;
+  max-width: 450px;
+  width: 94%;
+  text-align: center;
+  box-shadow: 0 18px 60px rgba(0,120,200,0.14), 0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* === TITLE === */
+.title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 2rem;
+  color: #0277bd;
+  margin-bottom: 5px;
+  line-height: 1.25;
+}
+.subtitle {
+  font-size: 0.9rem;
+  color: #5b9fc1;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+/* === GIF BOX === */
+.gif-box {
+  width: 220px; height: 220px;
+  margin: 0 auto 20px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: rgba(180,230,255,0.25);
+  border: 3px solid rgba(150,210,255,0.55);
+  box-shadow: 0 8px 28px rgba(0,130,200,0.1);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.gif-box img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 21px;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.gif-box img.fade-in { animation: gifPop 0.4s ease forwards; }
+@keyframes gifPop {
+  from { opacity:0; transform:scale(0.88); }
+  to   { opacity:1; transform:scale(1); }
+}
+
+/* === QUESTION === */
+.q-text {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.3rem;
+  color: #01579b;
+  margin-bottom: 26px;
+}
+
+/* === BUTTON ARENA === */
+.btn-arena {
+  position: relative;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-yes {
+  background: linear-gradient(145deg, #43e97b, #27ae60);
+  color: #fff;
+  border: none;
+  border-radius: 18px;
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.7rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  padding: 15px 50px;
+  box-shadow: 0 6px 22px rgba(39,174,96,0.42);
+  transition: transform 0.18s, box-shadow 0.18s, font-size 0.35s ease, padding 0.35s ease;
+  z-index: 5;
+}
+.btn-yes:hover { transform: scale(1.08); box-shadow: 0 10px 30px rgba(39,174,96,0.52); }
+.btn-yes:active { transform: scale(0.95); }
+
+.btn-no {
+  background: linear-gradient(145deg, #f44336, #b71c1c);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 12px 22px;
+  box-shadow: 0 4px 14px rgba(183,28,28,0.38);
+  position: absolute;
+  z-index: 6;
+  white-space: nowrap;
+  transition: font-size 0.25s, opacity 0.3s, transform 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+
+/* Wiggle on hover */
+.btn-no:hover { filter: brightness(1.1); }
+
+/* === YES SCREEN === */
+#yes-screen {
+  display: none;
+  animation: popIn 0.65s cubic-bezier(0.175,0.885,0.32,1.275) forwards;
+}
+@keyframes popIn {
+  from { opacity:0; transform:scale(0.65) translateY(30px); }
+  to   { opacity:1; transform:scale(1) translateY(0); }
+}
+
+.yes-emoji { font-size:2.8rem; display:block; margin-bottom:10px; animation:wiggle 0.8s ease infinite; }
+@keyframes wiggle {
+  0%,100%{ transform:rotate(-8deg) scale(1); }
+  50%    { transform:rotate(8deg)  scale(1.15); }
+}
+
+.yes-title {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.9rem;
+  color: #0277bd;
+  margin-bottom: 16px;
+}
+
+.yes-gif-box {
+  width: 175px; height: 175px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #e53935;
+  box-shadow: 0 0 0 8px rgba(229,57,53,0.12), 0 10px 32px rgba(229,57,53,0.22);
+  animation: ringPulse 1.5s ease-in-out infinite;
+}
+@keyframes ringPulse {
+  0%,100%{ box-shadow: 0 0 0 8px rgba(229,57,53,0.12), 0 10px 32px rgba(229,57,53,0.22); }
+  50%    { box-shadow: 0 0 0 14px rgba(229,57,53,0.07), 0 10px 40px rgba(229,57,53,0.32); }
+}
+.yes-gif-box img { width:100%; height:100%; object-fit:cover; }
+
+.msg-box {
+  background: linear-gradient(135deg, rgba(200,238,255,0.55), rgba(220,247,255,0.4));
+  border-left: 4px solid #0288d1;
+  border-radius: 14px;
+  padding: 17px 17px 17px 20px;
+  text-align: left;
+  font-size: 0.93rem;
+  color: #1a3a4a;
+  line-height: 1.78;
+  margin-bottom: 16px;
+}
+.msg-box p { margin-bottom: 11px; }
+.msg-box p:last-child { margin-bottom: 0; }
+
+.msg-footer {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.2rem;
+  color: #0288d1;
+}
+
+/* === CONFETTI === */
+#confetti { position:fixed; inset:0; pointer-events:none; z-index:9999; }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="hbg"></div>
+<canvas id="confetti"></canvas>
+
+<div class="card">
+
+  <!-- MAIN SCREEN -->
+  <div id="main-screen">
+    <h1 class="title">Will You Be My<br/>Forever Partner? ❤️</h1>
+    <p class="subtitle">Someone very special is asking you... ✨</p>
+
+    <div class="gif-box">
+      <img id="bear-gif"
+        src="https://media.tenor.com/7yFMUNQtIHoAAAAi/hamster-cute.gif"
+        alt="cute character"/>
+    </div>
+
+    <p class="q-text">Will you be my forever partner? 💙</p>
+
+    <div class="btn-arena" id="btnArena">
+      <button class="btn-yes" id="yesBtn" onclick="sayYes()">Yes 💚</button>
+      <button class="btn-no"  id="noBtn"  onclick="runAway()">No 😢</button>
+    </div>
+  </div>
+
+  <!-- YES SCREEN -->
+  <div id="yes-screen">
+    <span class="yes-emoji">🎉❤️🎉</span>
+    <h2 class="yes-title">You said Yes! 🥰</h2>
+    <div class="yes-gif-box">
+      <img src="https://media.tenor.com/RV6RB1Z4BXYAAAAC/hamster-in-love.gif" alt="happy character"/>
+    </div>
+    <div class="msg-box">
+      <p>Raj, I really need you in my life forever and I truly hope you understand me. I never hurt you intentionally — sometimes my hormones and situations make me irritated and frustrated.</p>
+      <p>I want us to be together, but your behavior still triggers me and it feels like you don't try to understand me. If you really feel I'm not right for you or that these fights will continue in the future, then maybe it's better we go our own ways and live our lives individually.</p>
+      <p>Please think about it. Thank you. 💙</p>
+    </div>
+    <p class="msg-footer">Forever yours 🌙✨</p>
+  </div>
+
+</div>
+
+<script>
+/* ══════════════════════════════
+   FLOATING RED HEARTS
+══════════════════════════════ */
+const hbg = document.getElementById('hbg');
+for (let i = 0; i < 35; i++) {
+  const d = document.createElement('div');
+  d.className = 'hf';
+  d.textContent = '❤️';
+  d.style.cssText = `
+    left: ${Math.random() * 100}%;
+    font-size: ${0.75 + Math.random() * 1.6}rem;
+    animation-duration: ${5 + Math.random() * 9}s;
+    animation-delay: ${-Math.random() * 10}s;
+  `;
+  hbg.appendChild(d);
+}
+
+/* ══════════════════════════════
+   GIF STATES (animated characters)
+══════════════════════════════ */
+const gifs = [
+  'https://media.tenor.com/7yFMUNQtIHoAAAAi/hamster-cute.gif',          // 0 idle/happy
+  'https://media.tenor.com/Sd9TXBwBl8YAAAAi/hamster-sad.gif',            // 1 sad
+  'https://media.tenor.com/lkpu7A9lP4QAAAAC/sad-hamster.gif',            // 2 cry
+  'https://media.tenor.com/h1RaOjVJJaIAAAAi/hamster-please.gif',         // 3 beg/please
+  'https://media.tenor.com/WS6pXoJNSFoAAAAi/hamster-cry.gif',            // 4 cry2
+  'https://media.tenor.com/g1eHT5OHMO8AAAAi/hamster-cute.gif',           // 5 confused
+];
+const gifSequence = [0, 1, 2, 3, 2, 4, 3, 4, 3, 4];
+
+const bearImg = document.getElementById('bear-gif');
+function setGif(index) {
+  const src = gifs[index] || gifs[0];
+  bearImg.classList.remove('fade-in');
+  void bearImg.offsetWidth;
+  bearImg.src = src;
+  bearImg.classList.add('fade-in');
+}
+
+/* ══════════════════════════════
+   NO BUTTON LOGIC
+══════════════════════════════ */
+let noCount = 0;
+const noLabels = [
+  "No 😢",
+  "Are you sure? 🥺",
+  "Please... 😭",
+  "Pookie please 🥺",
+  "Please??? 😭",
+  "PLEASE??? 😖",
+  "I'll cry 😭",
+  "Don't do this 💔",
+  "Last chance! 🙏",
+  "Fine then... 💔",
+];
+
+const noBtn   = document.getElementById('noBtn');
+const yesBtn  = document.getElementById('yesBtn');
+const arena   = document.getElementById('btnArena');
+
+// Position the No button absolutely
+noBtn.style.right  = '0';
+noBtn.style.bottom = '0';
+
+function runAway() {
+  noCount++;
+
+  // Update label
+  noBtn.textContent = noLabels[Math.min(noCount, noLabels.length - 1)];
+
+  // Update GIF
+  setGif(gifSequence[Math.min(noCount - 1, gifSequence.length - 1)]);
+
+  // Yes button grows bigger
+  const newSize = Math.min(1.7 + noCount * 0.2, 3.6);
+  yesBtn.style.fontSize = newSize + 'rem';
+  const px = Math.min(15 + noCount * 3, 50);
+  const py = Math.min(50 + noCount * 8, 160);
+  yesBtn.style.padding = `${px}px ${py}px`;
+  yesBtn.style.borderRadius = Math.min(18 + noCount * 2, 36) + 'px';
+
+  // No button shrinks
+  const shrink = Math.max(0.55, 1 - noCount * 0.05);
+  noBtn.style.fontSize  = (0.95 * shrink) + 'rem';
+  noBtn.style.opacity   = Math.max(0.45, 1 - noCount * 0.07).toString();
+
+  // No button teleports randomly within arena bounds
+  const aW = arena.offsetWidth;
+  const aH = arena.offsetHeight;
+  const nW = noBtn.offsetWidth;
+  const nH = noBtn.offsetHeight;
+  const rx = Math.random() * (aW - nW);
+  const ry = Math.random() * (aH - nH);
+  noBtn.style.left   = rx + 'px';
+  noBtn.style.top    = ry + 'px';
+  noBtn.style.right  = 'auto';
+  noBtn.style.bottom = 'auto';
+}
+
+/* ══════════════════════════════
+   YES BUTTON
+══════════════════════════════ */
+function sayYes() {
+  document.getElementById('main-screen').style.display = 'none';
+  const ys = document.getElementById('yes-screen');
+  ys.style.display = 'block';
+  launchConfetti();
+}
+
+/* ══════════════════════════════
+   CONFETTI EXPLOSION
+══════════════════════════════ */
+function launchConfetti() {
+  const cv = document.getElementById('confetti');
+  const cx = cv.getContext('2d');
+  cv.width  = window.innerWidth;
+  cv.height = window.innerHeight;
+
+  const palette = ['#e53935','#0288d1','#ffffff','#ff8a80','#b3e5fc','#ff4081','#64b5f6','#ffccbc','#f48fb1'];
+  const pieces  = Array.from({ length: 220 }, () => ({
+    x:   Math.random() * cv.width,
+    y:   Math.random() * cv.height - cv.height,
+    w:   5 + Math.random() * 10,
+    h:   4 + Math.random() * 7,
+    c:   palette[Math.floor(Math.random() * palette.length)],
+    vy:  2 + Math.random() * 5.5,
+    vx:  (Math.random() - 0.5) * 4,
+    rot: Math.random() * 360,
+    rs:  (Math.random() - 0.5) * 8,
+    heart: Math.random() < 0.25,
+  }));
+
+  let frame = 0;
+  (function draw() {
+    cx.clearRect(0, 0, cv.width, cv.height);
+    pieces.forEach(p => {
+      cx.save();
+      cx.translate(p.x + p.w / 2, p.y + p.h / 2);
+      cx.rotate(p.rot * Math.PI / 180);
+      if (p.heart) {
+        cx.font = '16px serif';
+        cx.fillText('❤️', -8, 8);
+      } else {
+        cx.fillStyle = p.c;
+        cx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+      }
+      cx.restore();
+      p.y += p.vy; p.x += p.vx; p.rot += p.rs;
+    });
+    frame++;
+    if (frame < 300) requestAnimationFrame(draw);
+    else cx.clearRect(0, 0, cv.width, cv.height);
+  })();
+}
+
+/* ══════════════════════════════
+   Resize confetti canvas on resize
+══════════════════════════════ */
+window.addEventListener('resize', () => {
+  const cv = document.getElementById('confetti');
+  cv.width  = window.innerWidth;
+  cv.height = window.innerHeight;
+});
+</script>
+</body>
+</html>
